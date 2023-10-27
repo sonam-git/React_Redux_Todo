@@ -24,7 +24,7 @@ export const Todo = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} style={{marginLeft: 20}}>
         <Grid item xs={4} >
       <Box >
-        <p>What is the todo name?</p>
+        <h4>What is the todo name?</h4>
         <TextField
           variant="filled"
           id="filled-basic"
@@ -35,7 +35,7 @@ export const Todo = () => {
           }}
         />
 
-        <p>Who created this todo?</p>
+        <h4>Who created this todo?</h4>
         <TextField
           variant="filled"
           id="filled-basic"
@@ -46,7 +46,7 @@ export const Todo = () => {
           }}
         />
       </Box>
-      <p>Is Todo completed?</p>
+      <h4>Is Todo completed?</h4>
       <RadioGroup
         value={isCompleted}
         onChange={(event) => setIsCompleted(event.target.value)}
@@ -57,7 +57,7 @@ export const Todo = () => {
       <Button
         variant="contained"
         color="primary"
-        style={{ marginLeft: 5 }}
+        style={{  marginTop: 5 }}
         onClick={() => {
           const todo = {
             todo: todoInput,
@@ -76,23 +76,23 @@ export const Todo = () => {
       <Grid item xs={8}>
 <Grid container spacing={3} >
       {todos.length === 0 ? (
-        <p>There is no todos yet.</p>
+        <h4>There is no todos yet.</h4>
       ) : (
         todos.map((todo, index) => {
           return (
             <Card
               key={index}
               sx={{ widtWidth: 345 }}
-              style={{ backgroundColor: "gray", marginBottom: 5 }}
+              style={{ backgroundColor: "white", marginBottom: 5 }}
             >
               <CardContent>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography gutterBottom variant="body1" component="div">
                   Todo: {todo.todo[0].toUpperCase() + todo.todo.slice(1)}
                 </Typography>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography gutterBottom variant="body1" component="div">
                   Author: {todo.author[0].toUpperCase() + todo.author.slice(1)}
                 </Typography>
-                <Typography gutterBottom variant="h6" component="div">
+                <Typography gutterBottom variant="body1" component="div">
                   Completed: {String(todo.completed)}
                 </Typography>
               </CardContent>
