@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import{Counter,Welcome,Todo,Navbar}  from "./components";
 
-function App() {
+
+const hobby = ["soccer", "Music", "Travel"];
+
+const App = () => {
+  // use state is a  function that return an array with two elements
+  // which takes one parameter
+  // the first element have the value of the parameter being passed
+  // second is a function for updating the value of the first element
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <Welcome name="Sonam" hobbies={hobby} />
+      <Counter /> */}
+      <Navbar/>
+      <Todo/>
     </div>
   );
-}
+};
 
 export default App;
