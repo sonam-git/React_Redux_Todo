@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const INITIAL_STATE = {
   todos: [],
@@ -44,9 +44,9 @@ const todosSlice = createSlice({
 
 // destructure add todo from todosSlice
 export const {
-   addTodo,  //action creator
-   deleteTodo,
-   updateTodo
+  addTodo, //action creator
+  deleteTodo,
+  updateTodo,
 } = todosSlice.actions;
 // destructure todosReducer from todosSlice
 export const todosReducer = todosSlice.reducer;
