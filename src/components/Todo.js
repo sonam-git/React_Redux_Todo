@@ -118,12 +118,13 @@ const handleUpdateTodo = () => {
       {todos.length === 0 ? (
         <h4>There is no todos yet.</h4>
       ) : (
+
         todos.map((todo, index) => {
           return (
             <Card
               key={index}
               sx={{ widtWidth: 345 }}
-              style={{ backgroundColor: "white", marginBottom: 5 }}
+              style={{ backgroundColor: "white", marginBottom: 15, marginRight: 15 }}
             >
               <CardContent>
                 <Typography gutterBottom variant="body1" component="div">
@@ -139,10 +140,14 @@ const handleUpdateTodo = () => {
               </CardContent>
               <CardActions>
                 <Button 
+              
+                variant="contained"
                 size="small"
                 onClick={() => handleDeleteTodo(todo.id)} // Call handleDeleteTodo with the todo's id
                 >Delete</Button>
                 <Button 
+                color="primary"
+                variant="contained"
                 size="small"
                 onClick={() => openUpdateForm(todo)}
                 >Update</Button>
@@ -184,7 +189,7 @@ const handleUpdateTodo = () => {
   </DialogContent>
   <DialogActions>
     <Button onClick={handleUpdateTodo} color="primary">
-      Save
+      Update
     </Button>
     <Button onClick={() => setOpenUpdateDialog(false)} color="primary">
       Cancel
