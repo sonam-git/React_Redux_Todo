@@ -19,12 +19,25 @@ const todosSlice = createSlice({
       // we directly modify state using redux toolkit, which gives us that features in rtk
       state.todos.push(action.payload);
     },
+    deleteTodo: (state, action) => {
+      // Find and remove the todo with the specified id
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+    },
+    updateTodo: (state, action) => {
+      const { id, updatedTodo } = action.payload;
+      const todoToUpdate = state.todos.find((todo) => todo.id === id);
+      if (todoToUpdate) {
+        Object.assign(todoToUpdate, updatedTodo);
+      }
+    },
   },
 });
 
 // destructure add todo from todosSlice
 export const {
    addTodo,  //action creator
+   deleteTodo,
+   updateTodo
 } = todosSlice.actions;
 // destructure todosReducer from todosSlice
 export const todosReducer = todosSlice.reducer;

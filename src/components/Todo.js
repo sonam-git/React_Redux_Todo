@@ -1,8 +1,7 @@
-import React from "react";
+import React,{ useState } from "react";
 import { useDispatch } from "react-redux";
 import{ useTodo} from "./useTodo";
-// import {addTodo} from "../actions/todoActionCreators"
-import {addTodo} from '../reducers/todosSlice'
+import {addTodo,deleteTodo,updateTodo} from '../reducers/todosSlice'
 
 import {
   Typography,
@@ -16,6 +15,10 @@ import {
   FormControlLabel,
   Box,
   Grid,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@material-ui/core";
 
 export const Todo = () => {
@@ -29,6 +32,31 @@ const  {
   isCompleted,
   setIsCompleted,
 } = useTodo();
+
+// State to manage the update dialog/form
+const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
+const [updatedTodo, setUpdatedTodo] = useState({
+  todo: "",
+  author: "",
+  completed: "no",
+});
+
+// Function to open the update dialog and pre-fill with todo values
+const openUpdateForm = (todo) => {
+  setOpenUpdateDialog(true);
+  setUpdatedTodo(todo);
+};
+
+// Function to handle updating a todo
+const handleUpdateTodo = () => {
+  dispatch(updateTodo({ id: updatedTodo.id, updatedTodo }));
+  setOpenUpdateDialog(false);
+};
+
+ // Function to handle todo deletion
+ const handleDeleteTodo = (todoId) => {
+  dispatch(deleteTodo(todoId));
+};
 
   return (
     <div >
@@ -97,7 +125,7 @@ const  {
             >
               <CardContent>
                 <Typography gutterBottom variant="body1" component="div">
-                  Todo: {todo.todo}
+                  Todo: {todo.todo[0].toUpperCase()+ todo.todo.slice(1)}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
                   {/* Author: {todo.author[0].toUpperCase() + todo.author.slice(1)} */}
@@ -108,8 +136,14 @@ const  {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Delete</Button>
-                <Button size="small">Update</Button>
+                <Button 
+                size="small"
+                onClick={() => handleDeleteTodo(todo.id)} // Call handleDeleteTodo with the todo's id
+                >Delete</Button>
+                <Button 
+                size="small"
+                onClick={() => openUpdateForm(todo)}
+                >Update</Button>
               </CardActions>
             </Card>
           );
@@ -118,6 +152,44 @@ const  {
       </Grid>
       </Grid>
       </Grid>
+         {/* Add a dialog or form for updating todos */}
+         <Dialog open={openUpdateDialog} onClose={() => setOpenUpdateDialog(false)}>
+  <DialogTitle>Update Todo</DialogTitle>
+  <DialogContent>
+    <TextField
+      label="Todo"
+      value={updatedTodo.todo}
+      onChange={(e) =>
+        setUpdatedTodo({ ...updatedTodo, todo: e.target.value })
+      }
+    />
+    <TextField
+      label="Author"
+      value={updatedTodo.author}
+      onChange={(e) =>
+        setUpdatedTodo({ ...updatedTodo, author: e.target.value })
+      }
+    />
+    <RadioGroup
+      value={updatedTodo.completed}
+      onChange={(e) =>
+        setUpdatedTodo({ ...updatedTodo, completed: e.target.value })
+      }
+    >
+      <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+      <FormControlLabel value="no" control={<Radio />} label="No" />
+    </RadioGroup>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleUpdateTodo} color="primary">
+      Save
+    </Button>
+    <Button onClick={() => setOpenUpdateDialog(false)} color="primary">
+      Cancel
+    </Button>
+  </DialogActions>
+</Dialog>
+
     </div>
   );
 };
