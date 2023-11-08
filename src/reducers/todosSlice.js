@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { v4 as uuidv4 } from 'uuid';
 
 const INITIAL_STATE = {
   todos: [],
@@ -13,15 +14,23 @@ const todosSlice = createSlice({
     // the object that we create here are actually action creators
     // every key we pass into reducers becomes an action creators
     // that we can destructure from the slice.actions properties
+    // addTodo: (state, action) => {
+    //   // in redux tool kit we break the rules of redux,
+    //   // which is we are not supposed to modify state directly, instead return the copy of old state with new state
+    //   // we directly modify state using redux toolkit, which gives us that features in rtk
+    //   state.todos.push(action.payload);
+    // },
     addTodo: (state, action) => {
-      // in redux tool kit we break the rules of redux,
-      // which is we are not supposed to modify state directly, instead return the copy of old state with new state
-      // we directly modify state using redux toolkit, which gives us that features in rtk
-      state.todos.push(action.payload);
+      const todo = {
+        id: uuidv4(), // Generate a unique ID
+        ...action.payload,
+      };
+      state.todos.push(todo);
     },
     deleteTodo: (state, action) => {
+      const todoId = action.payload;
       // Find and remove the todo with the specified id
-      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      state.todos = state.todos.filter((todo) => todo.id !== todoId);
     },
     updateTodo: (state, action) => {
       const { id, updatedTodo } = action.payload;

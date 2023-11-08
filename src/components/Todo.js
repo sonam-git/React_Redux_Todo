@@ -1,7 +1,9 @@
 import React,{ useState } from "react";
 import { useDispatch } from "react-redux";
 import{ useTodo} from "./useTodo";
-import {addTodo,deleteTodo,updateTodo} from '../reducers/todosSlice'
+import {addTodo,deleteTodo,updateTodo} from '../reducers/todosSlice';
+
+
 
 import {
   Typography,
@@ -60,7 +62,7 @@ const handleUpdateTodo = () => {
 
   return (
     <div >
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} style={{marginLeft: 20}}>
+<Grid container  style={{ marginLeft: 20 }}>
         <Grid item xs={4} >
       <Box >
         <h4>What is the todo name?</h4>
