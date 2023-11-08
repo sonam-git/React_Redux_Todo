@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from "react-redux";
+import{ useTodo} from "./useTodo";
+// import {addTodo} from "../actions/todoActionCreators"
+import {addTodo} from '../reducers/todosSlice'
+
 import {
   Typography,
   TextField,
@@ -14,10 +19,16 @@ import {
 } from "@material-ui/core";
 
 export const Todo = () => {
-  const [todoInput, setTodoInput] = useState("");
-  const [authorInput, setAuthorInput] = useState("");
-  const [todos, setTodos] = useState([]);
-  const [isCompleted, setIsCompleted] = useState("yes");
+  const dispatch = useDispatch();
+const  {
+  todoInput,
+  setTodoInput,
+  authorInput,
+  setAuthorInput,
+  todos,
+  isCompleted,
+  setIsCompleted,
+} = useTodo();
 
   return (
     <div >
@@ -64,8 +75,7 @@ export const Todo = () => {
             author: authorInput,
             completed: isCompleted === "yes",
           };
-          const newTodoState = [...todos, todo];
-          setTodos(newTodoState);
+          dispatch(addTodo(todo));
           setTodoInput("");
           setAuthorInput("");
         }}
@@ -87,10 +97,11 @@ export const Todo = () => {
             >
               <CardContent>
                 <Typography gutterBottom variant="body1" component="div">
-                  Todo: {todo.todo[0].toUpperCase() + todo.todo.slice(1)}
+                  Todo: {todo.todo}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
-                  Author: {todo.author[0].toUpperCase() + todo.author.slice(1)}
+                  {/* Author: {todo.author[0].toUpperCase() + todo.author.slice(1)} */}
+                  Author: {todo.author ? todo.author[0].toUpperCase() + todo.author.slice(1) : ''}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
                   Completed: {String(todo.completed)}

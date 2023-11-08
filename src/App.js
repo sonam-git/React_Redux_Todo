@@ -1,7 +1,7 @@
-import{Counter,Welcome,Todo,Navbar}  from "./components";
+import{Todo,Navbar}  from "./components";
 
 
-const hobby = ["soccer", "Music", "Travel"];
+
 
 const App = () => {
   // use state is a  function that return an array with two elements
